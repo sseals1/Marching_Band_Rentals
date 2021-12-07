@@ -1,19 +1,34 @@
-// import { Route, Redirect } from "react-router-dom";
-// import { ApplicationViews } from "./ApplicationViews";
-// import { NavBar } from "./NavBarComponent/NavBar";
-// import { Login } from "./auth/login";
-// import { Register } from "./auth/register";
-import React, { useEffect, useState } from "react"
-import { InstrumentFamily } from "./InstrumentFamily."
+
+import React from "react"
+import { Route, Redirect } from "react-router-dom"
+import Login from "./auth/Login"
+import { Register } from "./auth/Register"
+import { NavBar } from "./nav/NavBar"
+import ApplicationViews from "./ApplicationViews"
+import useSimpleAuth from "../hooks/ui/useSimpleAuth"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "./Kennel.css"
 
 
 export const MarchingBandRentals = () => {
+    const { isAuthenticated } = useSimpleAuth()
 
-  return (
-    <>
-      <h1>Marching Band Instrument Rentals</h1>
-      <InstrumentFamily />
-
+    return <>
+        <Route render={() => {
+            if (isAuthenticated()) {
+                return <>
+                    <NavBar />
+                    <ApplicationViews />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+        <Route path="/login">
+            <Login />
+        </Route>
+        <Route path="/register">
+            <Register />
+        </Route>
     </>
-  )
 }

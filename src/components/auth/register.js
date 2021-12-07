@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
-import "./Register.css"
+import "./register.css"
 
 export const Register = (props) => {
     const [customer, setCustomer] = useState({})
@@ -29,7 +29,7 @@ export const Register = (props) => {
                         .then(createdUser => {
                             if (createdUser.hasOwnProperty("id")) {
                                 localStorage.setItem("MarchingBand_customer", createdUser.id)
-                                history.push("/")
+                                history.push("/login")
                             }
                         })
                 }

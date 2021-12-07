@@ -1,3 +1,11 @@
 .instrument_fam {
-    display: block;
+    display: flex;
+    margin-top: 10em;
     }
+
+.instDrop {
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 150px;
+    height: 20px;
+}

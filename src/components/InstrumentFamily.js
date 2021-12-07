@@ -34,23 +34,80 @@ export const InstrumentFamily = () => {
 
     return (
         <>
-            <h1>Choose an Instrument</h1>
+            <section className="Landing_Box">
+                <h1>Choose an Instrument</h1>
 
-            <section key="instFam" className="instrument_fam">
-                {
-                    instrumentFamily.map(
-                        (instFamObj) => {
-                            return <h4>{instFamObj.instrumentType}</h4>
-                        }
-                    )
-                }
+
+
+                <h4>Brass</h4>
+                <select id="selectInsttrument" className="instDrop">
+
+                    {
+                        instruments.map(
+                            (instObj) => {
+                                if (instruments.instrumentFamilyId === instrumentFamily.id)
+                                    return <option key="instName">
+                                        {instObj.instrumentName}
+                                    </option>
+                            }
+                        )
+                    }
+
+
+
+
+                </select>
+                <h4>Stringed</h4>
+                <select id="selectInsttrument" className="instDrop">
+                    {
+                        instruments.map(
+                            (instObj) => {
+                                if (instruments.instrumentFamilyId === instrumentFamily.id)
+                                    return <option key="instName">
+                                        {instObj.instrumentName}
+                                    </option>
+                            }
+                        )
+                    }
+                </select>
+                <h4>Woodwind</h4>
+                <select id="selectInsttrument" className="instDrop">
+                    {
+                        instruments.map(
+                            (instObj) => {
+                                if (instruments.instrumentFamilyId === instrumentFamily.id)
+                                    return <option key="instName">
+                                        {instObj.instrumentName}
+                                    </option>
+                            }
+                        )
+                    }
+                </select>
+                <h4>Percussion</h4>
+                <select id="selectInsttrument" className="instDrop">
+                    {
+                        instruments.map(
+                            (instObj) => {
+                                if (instruments.instrumentFamilyId === instrumentFamily.id)
+                                    return <option key="instName">
+                                        {instObj.instrumentName}
+                                    </option>
+                            }
+                        )
+                    }
+                </select>
             </section>
 
-            
+
+
+
+
 
 
 
         </>
     )
 }
+
+
 
