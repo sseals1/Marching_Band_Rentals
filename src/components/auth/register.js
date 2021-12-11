@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
-import "./register.css"
+import "./Login.css"
 
 export const Register = (props) => {
-    const [customer, setCustomer] = useState({})
+    const [user, setUser] = useState({})
     const conflictDialog = useRef()
 
     const history = useHistory()
 
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${users.email}`)
+        return fetch(`http://localhost:8088/users?email=${user.email}`)
             .then(res => res.json())
             .then(user => !!user.length)
     }
@@ -23,13 +23,13 @@ export const Register = (props) => {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(customer)
+                        body: JSON.stringify(user)
                     })
                         .then(res => res.json())
                         .then(createdUser => {
                             if (createdUser.hasOwnProperty("id")) {
-                                localStorage.setItem("MarchingBand_customer", createdUser.id)
-                                history.push("/login")
+                                localStorage.setItem("marching_customer", createdUser.id)
+                                history.push("/")
                             }
                         })
                 }
@@ -39,10 +39,10 @@ export const Register = (props) => {
             })
     }
 
-    const updateCustomer = (evt) => {
-        const copy = {...customer}
+    const updateUser = (evt) => {
+        const copy = {...user}
         copy[evt.target.id] = evt.target.value
-        setCustomer(copy)
+        setUser(copy)
     }
 
 
@@ -54,21 +54,20 @@ export const Register = (props) => {
             </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register Marching Band Instrument Rentals</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Please Register for Marching Rae Repairs</h1>
+                
                 <fieldset>
                     <label htmlFor="name"> Full Name </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateUser}
                            type="text" id="name" className="form-control"
                            placeholder="Enter your name" required autoFocus />
                 </fieldset>
-                <fieldset>
-                    <label htmlFor="address"> Address </label>
-                    <input onChange={updateCustomer} type="text" id="address" className="form-control" placeholder="Street address" required />
-                </fieldset>
+                
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
-                    <input onChange={updateCustomer} type="email" id="email" className="form-control" placeholder="Email address" required />
+                    <input onChange={updateUser} type="email" id="email" className="form-control" placeholder="Email address" required />
                 </fieldset>
+                
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>

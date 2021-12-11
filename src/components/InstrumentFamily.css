@@ -6,6 +6,22 @@
 .instDrop {
     flex-direction: column;
     flex-wrap: wrap;
-    width: 150px;
+    width: 200px;
     height: 20px;
+    margin-bottom: 30px;
+}
+
+.header {
+    margin: 0px;
+}
+
+.landing_Box {
+    border: 10px solid;
+    text-align: center;
+    flex-direction: column;
+    width: 100%;    
+}
+
+.day_cost {
+    padding-bottom: 20px;
 }

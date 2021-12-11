@@ -1,34 +1,49 @@
 
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import Login from "./auth/Login"
+import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { NavBar } from "./nav/NavBar"
-import ApplicationViews from "./ApplicationViews"
-import useSimpleAuth from "../hooks/ui/useSimpleAuth"
-import "bootstrap/dist/css/bootstrap.min.css"
-import "./Kennel.css"
+import { ApplicationViews } from "./ApplicationViews"
+import "./MarchingBandRentals.css"
+// import useSimpleAuth from "./auth/hooks/useSimpleAuth"
+
+
+// import "bootstrap/dist/css/bootstrap.min.css"
+
 
 
 export const MarchingBandRentals = () => {
-    const { isAuthenticated } = useSimpleAuth()
+  // const { isAuthenticated } = useSimpleAuth()
 
-    return <>
-        <Route render={() => {
-            if (isAuthenticated()) {
-                return <>
-                    <NavBar />
-                    <ApplicationViews />
-                </>
-            } else {
-                return <Redirect to="/login" />
-            }
-        }} />
-        <Route path="/login">
-            <Login />
-        </Route>
-        <Route path="/register">
-            <Register />
-        </Route>
-    </>
+return(
+  <>
+    <Route
+      render={() => {
+        if (localStorage.getItem("marching_customer")) {
+          return (
+            <>
+              <h1 className="title">Marching Band Instrument Rentals</h1>
+
+              <NavBar />
+              <ApplicationViews />
+
+
+
+            </>
+          );
+        } else {
+          return <Redirect to="/login" />;
+        }
+      }}
+    />
+
+    <Route path="/login">
+      <Login />
+    </Route>
+    <Route path="/register">
+      <Register />
+    </Route>
+  </>
+  )
 }

@@ -1,0 +1,16 @@
+<h4>Brass</h4>
+                <select onchange="Brass" id="selectInsttrument" className="instDrop">
+                    {
+                        instruments.map(
+                            (instObj) => {
+                                instrumentFamily.map(family => {
+                                    if (instObj.instrumentFamilyId === family.id)
+                                    return <option value={instObj.id}>{instObj.name}</option>
+                                })
+                                
+                            }
+                        )
+                    }
+                </select>
+
+                
