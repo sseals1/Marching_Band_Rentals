@@ -7,11 +7,21 @@ export const NavBar = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Marching Band Instrument Rentals</Link>
+                <Link className="navbar__link" to="/" >Blue Note Instrument Rentals
+                    <image src="/Users/macbook/Desktop/Blue Note Music_LOGO.png"/>
+                </Link>
+                
+                
+
+                        {/* <Link to="https://github.com/Joeyryanbridges">
+                            <Image src="/Users/macbook/Desktop/Blue Note Music_LOGO.png"/>
+                            </Link> */}
+
+
                 {/*this is how the links on the nav bar are created. give it a className for css and set the li that the link is wrapped in to "active"*/}
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/Rentals">Rentals</Link>
+                <Link className="navbar__link" to="/RentalHistory">Rentals</Link>
                 {/*this is how the links on the nav bar are created. give it a className for css and set the li that the link is wrapped in to "active"*/}
             </li>
 

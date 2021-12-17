@@ -4,18 +4,22 @@ import { useHistory } from "react-router-dom"
 
 
 
-export const InstrumentFamily = () => {
+
+export const InstrumentFamily = (props) => {
     const [instrumentFamily, setInstrumentFamilyArray] = useState([])
     const [instruments, setInstrumentsArray] = useState([])
-    const [chosenInstruments, setChosenInstrumentsArray] = useState([])
+    const [chosenInstruments, setChosenInstruments] = useState([])
+    const [rentalId, setRentalId] = useState(0)
+
+
 
 
     useEffect(
         () => {
             fetch("http://localhost:8088/instrumentFamily")
                 .then(res => res.json())
-                .then((InstrumentFamilyArray) => {
-                    setInstrumentFamilyArray(InstrumentFamilyArray)
+                .then((family) => {
+                    setInstrumentFamilyArray(family)
                 })
         },
         []
@@ -26,44 +30,77 @@ export const InstrumentFamily = () => {
         () => {
             fetch("http://localhost:8088/instruments/")
                 .then(res => res.json())
-                .then((instrumentsArray) => {
-                    setInstrumentsArray(instrumentsArray)
+                .then((InstrumentsList) => {
+                    setInstrumentsArray(InstrumentsList)
                 })
         },
         []
     )
+    // useEffect(
+    //     () => {
+    //         fetch("http://localhost:8088/chosenInstruments/")
+    //             .then(res => res.json())
+    //             .then((ChosenInstrumentsList) => {
+    //                 setChosenInstruments(ChosenInstrumentsList)
+    //             })
+    //     },
+    //     []
+    // )
 
-    // useEffect(() => {
-    //     if (chosenInstruments.instrumentId) {
-
-    //     }
-    // }, [chosenInstruments])
 
 
 
-    const [instChoice, setInstChoice] = useState({
-        instrumentId: 0,
-        rentals: 0
 
-    })
+
+
     const history = useHistory()
 
 
-    const saveInstChoice = (instChoice) => {
-        // event.preventDefault()
-        
-        
+
+    const saveRentalObj = (event) => {
+        event.preventDefault()
+        const chosenRentalsObj = {
+            userId: parseInt(localStorage.getItem("marching_customer"))
+
+        }
+
         const fetchInstChoice = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(instChoice)
+            body: JSON.stringify(chosenRentalsObj)
         }
 
-        return fetch("http://localhost:8088/chosenInstruments", fetchInstChoice)
-            .then(() => {(res => res.json())})
-            
+        return fetch("http://localhost:8088/rentals", fetchInstChoice)
+            .then(res => res.json())
+            .then((rentalObj) => {
+
+                setRentalId(rentalObj.id)
+                for (const chosenInstrument of chosenInstruments) {
+                    const fetchChosenInstrument = {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            instrumentId: chosenInstrument,
+                            rentalId: rentalObj.id
+                        })
+                    }
+                    fetch("http://localhost:8088/chosenInstruments", fetchChosenInstrument)
+
+                    //  rentalObj.id is the primary key that needs to be used when saving instrument choices
+                    // itterate the chosenInstruments array and
+                    // do a POST operation and send instrumentId and Primary key of the rental
+                }
+            })
+            .then(
+                () => {
+                    history.push(`./Cart/${rentalId}`)
+                })
+
+
 
     }
 
@@ -71,6 +108,29 @@ export const InstrumentFamily = () => {
 
 
 
+    //    explain the rentalObj argument and parameter?  
+    const saveInstChoice = (rentalObj) => {
+        const newchosenInstrument = {
+
+        }
+
+        const fetchInstChoice = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newchosenInstrument)
+        }
+
+
+
+        return fetch("http://localhost:8088/chosenInstruments", fetchInstChoice)
+            .then(() => {
+                // history.push(`/Cart/${rentalObj.id}`)
+            })
+
+    }
+
 
 
 
@@ -78,159 +138,71 @@ export const InstrumentFamily = () => {
     return (
         <>
 
-            <section className="Landing_Box">
+            <section className="instrument_family">
 
 
-                <h2>Choose an Instrument</h2>
+                <h2 className="choose_instrument">Choose an Instrument</h2>
+                {instrumentFamily.map(family => {
+                    return (
+                        <>
+                            <h4 className="instrument_family">{family.instrumentType}</h4>
+                            <select onChange={
+                                (event) => {
+
+                                    const copyOfInstChoice = [...chosenInstruments]
+                                    copyOfInstChoice.push(parseInt(event.target.value))
+                                    setChosenInstruments(copyOfInstChoice)
+
+
+                                }} className="instDrop">
 
 
 
 
-                <select onChange={
-                    (event) => {
-                        const copyOfInstChoice = { ...instChoice }
-                        copyOfInstChoice.instrumentId = parseInt(event.target.value)
-
-                        setInstChoice(copyOfInstChoice)
-                    }
-                } id="selected_instrument" className="instDrop">
-                    <option value="0">Select an Instrument</option>
-                    {
-                        instruments.map(
-                            (instObj) => {
+                                <option className="select_instrument" value="0">Select an Instrument</option>
                                 {
-                                    return <option key="instrument_dropdown" value={instObj.id}>
-                                        {instObj.instrumentName}
-                                    </option>
-
-
-                                    // write ternary statement to check if state changed to
-                                    // render price and the Days button
-                                    // fix the add to cart button
+                                    instruments.map(
+                                        (instObj) => {
+                                            if (instObj.instrumentFamilyId === family.id)
+                                                return <option value={instObj.id} id={family.id} key={instObj.id}>
+                                                    {instObj.instrumentName}
+                                                </option>
+                                        }
+                                    )
                                 }
-
-
-                            }
-                        )
-                    }
-
-                </select>
-
+                            </select>
+                        </>
+                    )
+                })}
                 {
                     instruments.map(
-                        (instObj) => {
-                            if (instChoice.instrumentId === instObj.id) {
-                                return <div className="day_cost">{instObj.instrumentName} costs: ${instObj.costPerDay} per day</div>
+                        (instObjCostName) => {
+                            for (const chosenInstrument of chosenInstruments) {
+                                if (chosenInstrument === instObjCostName.id) {
+                                    return <div key={instObjCostName.id} className="day_cost">{instObjCostName.instrumentName} costs: ${instObjCostName.costPerDay} per day
+                                    </div>
+                                }
+
                             }
-                        })
+                        }
+                    )
+
                 }
-                {/* {
-                    instChoice.InstrumentId ? <option key="daily_Cost" value={instObj.instrumentId}>{instObj.costPerDay}</option>
-                        : ""
-                } */}
-
-
             </section>
-            <button className="btn btn-primary" onChange={saveInstChoice}>
+            <div className="btn-primary">
+            <button  to={``} key="placeholder" onClick={saveRentalObj}>
+                
                 Add to Cart
             </button>
+            </div>
+            
+
+
+
 
         </>
     )
 }
-{/* 
-
-<h4 className="header">Stringed</h4>
-<select onChange={
-    (event) => {
-        const copyOfInstChoice = { ...instChoice }
-                        copyOfInstChoice.InstrumentId = event.target.value
-                        setInstChoice(copyOfInstChoice)
-                    }
-                } id="selectWoodwind" className="instDrop">
-                    <option value="2">Select an Instrument</option>
-                    {
-                        instruments.map(
-                            (instObj) => {
-                                if (instObj.instrumentFamilyId === instrumentFamily[1].id) {
-                                    return <option key="stringed_key" value={instObj.instrumentId}>
-                                        {instObj.instrumentName}
-                                    </option>
-
-                                }
-                            }
-                        )
-                    }
 
 
 
-                </select>
-
-
-                <h4 className="header">Woodwind</h4>
-                <select onChange={
-                    (event) => {
-                        const copyOfInstChoice = { ...instChoice }
-                        copyOfInstChoice.InstrumentId = event.target.value
-                        setInstChoice(copyOfInstChoice)
-                    }
-                } id="selectPercussion" className="instDrop">
-                    <option value="3">Select an Instrument</option>
-                    {
-                        instruments.map(
-                            (instObj) => {
-                                if (instObj.instrumentFamilyId === instrumentFamily[2].id) {
-                                    return <option key="woodwind_key" value={instObj.instrumentId}>
-                                        {instObj.instrumentName} {instObj.costPerDay}
-                                    </option>
-                                }
-                            }
-                        )
-                    }
-                </select>
-
-                <h4 className="header">Perussion</h4>
-                <select onChange={
-                    (event) => {
-                        const copyOfInstChoice = { ...instChoice }
-                        copyOfInstChoice.InstrumentId = event.target.value
-                        setInstChoice(copyOfInstChoice)
-                    }
-                } id="selectPercussion" className="instDrop">
-                    <option value="4">Select an Instrument</option>
-                    {
-                        instruments.map(
-                            (instObj) => {
-                                if (instObj.instrumentFamilyId === instrumentFamily[3].id) {
-                                    return <option key="percussion_key" value={instObj.instrumentId}>
-                                        {instObj.instrumentName} {instObj.costPerDay}
-                                    </option>
-                                }
-                            }
-                        )
-                    }
-                </select> */}
-
-
-
-
-
-{/* {instrumentFamily.map(family => {
-    return (
-        <>
-            <h4>{family.instrumentType}</h4>
-            <select onchange="Stringed" id="selectInsttrument" className="instDrop">
-                {
-                    instruments.map(
-                        (instObj) => {
-                            if (instObj.instrumentFamilyId === family.id)
-                                return <option key="stringed">
-                                    {instObj.instrumentName}
-                                </option>
-                        }
-                    )
-                }
-            </select>
-        </>
-    )
-})} */}

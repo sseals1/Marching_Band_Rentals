@@ -1,0 +1,26 @@
+.days_Drop {
+    display: flex;
+    font-weight: 10em;
+    margin-bottom: 5%;
+}
+
+.calender {
+    margin-bottom: 1%;
+}
+
+.btn-primary {
+    display: flex;
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+}
+
+    .cost_total {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+.day_cost {
+    margin-top: 2px; 
+    margin-bottom: 2px;
+}

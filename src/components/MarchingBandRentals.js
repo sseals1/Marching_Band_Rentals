@@ -1,4 +1,3 @@
-
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
 import { Login } from "./auth/Login"
@@ -23,7 +22,7 @@ return(
         if (localStorage.getItem("marching_customer")) {
           return (
             <>
-              <h1 className="title">Marching Band Instrument Rentals</h1>
+              <h1 className="title">Blue Note Music Rentals</h1>
 
               <NavBar />
               <ApplicationViews />
@@ -41,9 +40,10 @@ return(
     <Route path="/login">
       <Login />
     </Route>
-    <Route path="/register">
+    <Route exact path="/register">
       <Register />
     </Route>
   </>
   )
-}
+};
+
