@@ -36,6 +36,7 @@
         font-style: bold;
         font-size: 15px;
         border: .2px #002401 solid;
+        
         /* text-align: center; */
     }
 
@@ -48,6 +49,7 @@
         width: 100%;
         font-style: bold;
         font-size: 15px;
+        
         border: .2px #002401 solid;
     
     
@@ -68,5 +70,5 @@
         width: 100%;
         font-style: bold;
         font-size: 15px;
-        /* border: .2px #002401 solid; */
+        border: .2px #002401 solid;
 }
