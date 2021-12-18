@@ -158,17 +158,15 @@ export const Cart = (props) => {
         for (let i = 0; i < allCostPerDay.length; i++) {
             sum += allCostPerDay[i];
         }
-
+        
         const OrderTotalCost = sum * DateSubtract
-
-        let Tax = () => {
-            const totalTax = (OrderTotalCost * .095)
-            return totalTax
-
-        }
-        // return Tax
-
+        return OrderTotalCost
     }
+
+
+    
+
+
 
 
     return (
@@ -231,18 +229,19 @@ export const Cart = (props) => {
             </section>
 
 
-            <section className="cost_total">
-
-
-
-                {/* <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${$Tax()} ` : ""}
-                </div> */}
+            <section className="">
 
 
 
                 <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${totalForDays()} ` : ""}
+                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${totalForDays() * .095} ` : ""}
+                </div>
+
+
+
+
+                <div className="cost_total">
+                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${(totalForDays() * .095) + totalForDays()} ` : ""}
                 </div>
 
 
