@@ -7,15 +7,10 @@ export const NavBar = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item">
+                
                 <Link className="navbar__link1" to="/" >
                     <img src= "Blue Note Music_LOGO.png" width="200" height="200"/>
                 </Link>
-                
-                
-
-                        {/* <Link to="https://github.com/Joeyryanbridges">
-                            <Image src="/Users/macbook/Desktop/Blue Note Music_LOGO.png"/>
-                            </Link> */}
 
 
                 {/*this is how the links on the nav bar are created. give it a className for css and set the li that the link is wrapped in to "active"*/}

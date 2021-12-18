@@ -3,3 +3,10 @@
     font-family: auto;
     font-size: 3em;
 }
+
+.home_image {
+    display: flex;
+    text-align: center;
+    font-family: auto;
+    /* font-size: 3em; */
+}

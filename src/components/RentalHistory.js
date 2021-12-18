@@ -52,16 +52,6 @@ export const RentalHistory = () => {
 
 
 
-
-{/* <h4 className="header">Stringed</h4>
-                        <select onChange={
-                            (event) => {
-                                const copyOfInstChoice = { ...instChoice }
-                                                copyOfInstChoice.InstrumentId = event.target.value
-                                                setInstChoice(copyOfInstChoice)
-                                            }
-                                        } id="selectWoodwind" className="instDrop">
-                                            <option value="2">Select an Instrument</option> */}
 return (
     <>
 
@@ -88,13 +78,13 @@ return (
                                 }
                             })
 
-                        if (Date.parse(rentHistObj.startDate) > todaysDate) {
+                        if (Date.parse((rentHistObj.endDate)) >= todaysDate && localStorage.getItem("marching_customer")) {
                             return <section key={rentHistObj.id} className="rental">
                                 <p className="titles">Start Date:</p>{rentHistObj.startDate}
                                 <div className="titles">End Date:  </div>{rentHistObj.endDate}
                                 <div className="titles">Instrument:</div>{instObj?.instrumentName}
                                 <div className="titles">Days Rented:</div>{daysRented()}
-                                <div className="titles">Total Cost:</div>{rentHistObj.totalCost}
+                                <div className="titles">Total Cost: $</div>{rentHistObj.totalCost}
                             </section>
                         }
                     }
@@ -130,7 +120,7 @@ return (
                                 }
                             })
 
-                        if (Date.parse(rentHistObj.endDate) < todaysDate) {
+                        if (Date.parse(rentHistObj.endDate) <= todaysDate - 1) {
                             return <section key={rentHistObj.id} className="rental">
                                 <div className="titles">Start Date:</div>{rentHistObj.startDate}
                                 <div className="titles">End Date:  </div>{rentHistObj.endDate}

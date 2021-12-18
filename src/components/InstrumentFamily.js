@@ -10,7 +10,7 @@ export const InstrumentFamily = (props) => {
     const [instruments, setInstrumentsArray] = useState([])
     const [chosenInstruments, setChosenInstruments] = useState([])
     const [rentalId, setRentalId] = useState(0)
-    
+
 
     // get the chosenInstruments array to the cart view using PROPS or global variable
     // look at the chosenInstruments array and capture the intergers inside and cwrite a condtionoal that compares the integer to the value of instrument.id
@@ -41,7 +41,7 @@ export const InstrumentFamily = (props) => {
         },
         []
     )
-    
+
 
 
 
@@ -69,10 +69,10 @@ export const InstrumentFamily = (props) => {
         }
 
         return fetch("http://localhost:8088/rentals", fetchInstChoice)
-        .then(res => res.json())
-        .then((rentalObj) => {
-            
-            setRentalId(rentalObj.id)
+            .then(res => res.json())
+            .then((rentalObj) => {
+
+                setRentalId(rentalObj.id)
                 for (const chosenInstrument of chosenInstruments) {
                     const fetchChosenInstrument = {
                         method: "POST",
@@ -85,18 +85,18 @@ export const InstrumentFamily = (props) => {
                         })
                     }
                     fetch("http://localhost:8088/chosenInstruments", fetchChosenInstrument)
-                    .then(
-                        () => {
-                            history.push(`/Cart/${rentalObj.id}`)
-                            
-                        })
-                    
+                        .then(
+                            () => {
+                                history.push(`/Cart/${rentalObj.id}`)
+
+                            })
+
                 }
             })
-                
-                //  rentalObj.id is the primary key that needs to be used when saving instrument choices
-                // itterate the chosenInstruments array and
-                // do a POST operation and send instrumentId and Primary key of the rental
+
+        //  rentalObj.id is the primary key that needs to be used when saving instrument choices
+        // itterate the chosenInstruments array and
+        // do a POST operation and send instrumentId and Primary key of the rental
 
 
     }
@@ -105,8 +105,8 @@ export const InstrumentFamily = (props) => {
 
 
 
-    //    explain the rentalObj argument and parameter?  
-    const saveInstChoice = (rentalObj) => {
+        // explain the rentalObj argument and parameter ?  
+        const saveInstChoice = (rentalObj) => {
         const newchosenInstrument = {
 
         }
@@ -143,7 +143,8 @@ export const InstrumentFamily = (props) => {
                             <h4 className="instrument_family">{family.instrumentType}</h4>
                             <select onChange={
                                 (event) => {
-                            // create array of objects with instrumentId's which are currently captured in state.
+                                    // create array of objects with instrumentId's which are currently captured in state.
+
                                     const copyOfInstChoice = [...chosenInstruments]
                                     copyOfInstChoice.push(parseInt(event.target.value))
                                     setChosenInstruments(copyOfInstChoice)
@@ -172,32 +173,32 @@ export const InstrumentFamily = (props) => {
 
 
                 <section className="day_cost1">
-                {
-                    instruments.map(
-                        (instObjCostName) => {
-                            for (const chosenInstrument of chosenInstruments) {
-                                if (chosenInstrument === instObjCostName.id) {
-                                    return <div key={instObjCostName.id} className="days_cost">{instObjCostName.instrumentName} costs: ${instObjCostName.costPerDay} per day
-                                    </div>
+                    {
+                        instruments.map(
+                            (instObjCostName) => {
+                                for (const chosenInstrument of chosenInstruments) {
+                                    if (chosenInstrument === instObjCostName.id) {
+                                        return <div key={instObjCostName.id} className="days_cost">{instObjCostName.instrumentName} costs: ${instObjCostName.costPerDay} per day
+                                        </div>
+                                    }
+
                                 }
-
                             }
-                        }
-                    )
+                        )
 
-                }
+                    }
                 </section>
 
 
 
             </section>
             <section className="btn-primary">
-            <button  to={``} key="placeholder" onClick={saveRentalObj}>
-                
-                Add to Cart
-            </button>
+                <button to={``} key="placeholder" onClick={saveRentalObj}>
+
+                    Add to Cart
+                </button>
             </section>
-            
+
 
 
 
