@@ -73,25 +73,32 @@ export const Cart = (props) => {
         const totalDays = day1.getTime() - day2.getTime()
         const DateSubtract = totalDays / (1000 * 3600 * 24)
         let totalCostOfInstrument = 0
-        const totalCost = chosenInstruments.filter(
-            (instObj) => {
-                if (instruments.id === instObj.instrumentId)
-                    return totalCostOfInstrument = DateSubtract * instruments.costPerDay
 
+        const allChosenInstruments = chosenInstruments.filter(
+            (instObj) => {
+                if (instObj.rentalId === parseInt(createdRentalsId))
+                    return instObj.instrument.costPerDay
             }
         )
-        // theInstruments.map(
-        //     (instrument) => {
-        //         return instrument
-        //     }
-        //     )
-        //     const totalCost = DateSubtract * instrument.costPerDay
+
+        const allCostPerDay = allChosenInstruments.map(
+            (instObj) => {
+                return instObj.instrument.costPerDay
+            })
+
+        let sum = 0;
+        for (let i = 0; i < allCostPerDay.length; i++) {
+            sum += allCostPerDay[i];
+        }
+        
+        const OrderTotalCost = sum * DateSubtract
+        // return OrderTotalCost
 
         const chosenRentalsObj = { //object that is being created
             userId: parseInt(localStorage.getItem("marching_customer")),
             startDate: chosenDays.startDate,
             endDate: chosenDays.endDate,
-            totalCost: totalCost
+            totalCost: OrderTotalCost
         }
 
         const fetchInstChoice = {
@@ -204,7 +211,7 @@ export const Cart = (props) => {
 
 
 
-
+        <section className="order_box">
 
             <div className="dayCost_total1">
                 {chosenDays.startDate && chosenDays.endDate ? `Rental Days: ${totalDays()}` : ""}
@@ -218,7 +225,7 @@ export const Cart = (props) => {
 
                                 return !chosenDays.startDate && !chosenDays.endDate ? ""
                                     : <div key={instObject.id}>
-                                        Order: ${instObject.instrument?.costPerDay * totalDays().toFixed(2)}
+                                        Order: {instObject.instrument.instrumentName}----- ${instObject.instrument?.costPerDay * totalDays().toFixed(2)}
                                     </div>
                             }
                         }
@@ -234,14 +241,14 @@ export const Cart = (props) => {
 
 
                 <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${totalForDays() * .095} ` : ""}
+                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${totalForDays().toFixed(2) * .095} ` : ""}
                 </div>
 
 
 
 
                 <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${(totalForDays() * .095) + totalForDays()} ` : ""}
+                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${(parseFloat(totalForDays()).toFixed() * .095) + totalForDays()} ` : ""}
                 </div>
 
 
@@ -256,6 +263,8 @@ export const Cart = (props) => {
 
 
 
+
+            </section>
 
 
 
