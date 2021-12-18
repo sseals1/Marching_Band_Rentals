@@ -7,8 +7,8 @@ export const NavBar = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item">
-                <Link className="navbar__link" to="/" >Blue Note Instrument Rentals
-                    <image src="/Users/macbook/Desktop/Blue Note Music_LOGO.png"/>
+                <Link className="navbar__link1" to="/" >
+                    <img src= "Blue Note Music_LOGO.png" width="200" height="200"/>
                 </Link>
                 
                 
@@ -20,12 +20,12 @@ export const NavBar = () => {
 
                 {/*this is how the links on the nav bar are created. give it a className for css and set the li that the link is wrapped in to "active"*/}
             </li>
-            <li className="navbar__item">
+            <li className="navbar__item1">
                 <Link className="navbar__link" to="/RentalHistory">Rentals</Link>
                 {/*this is how the links on the nav bar are created. give it a className for css and set the li that the link is wrapped in to "active"*/}
             </li>
 
-            <li className="navbar__item">
+            <li className="navbar__item1">
                 <Link className="navbar__link" to="/Cart">Cart</Link>
             </li>
 
@@ -33,7 +33,7 @@ export const NavBar = () => {
             
             
             
-            <li className="navbar__item"> {/*//this is an li jsx tag that holds the className of the li*/}
+            <li className="navbar__item1"> {/*//this is an li jsx tag that holds the className of the li*/}
                 <Link className="navbar__link" to="#" //this is a link that sets the to="#" to here and creates the Logout link.
                     onClick={ //this onClick callback function is used to remove the current user from local storage 
                         //when the Logout link is clicked.

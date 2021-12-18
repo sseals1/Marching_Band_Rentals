@@ -27,10 +27,26 @@ a:visited{
     flex-basis: 20%;
     list-style-type: none;
     color: rgb(255, 255, 255);
-    margin-top: 20px;
+    margin-top: -4px;
+    margin-bottom: -10px;
+
+        
+}
+.navbar__item1 {
+    flex-basis: 20%;
+    list-style-type: none;
+    color: rgb(255, 255, 255);
+    margin-top: 80px;
     margin-bottom: 20px;
 
         
+}
+.navbar_link {
+    font-size: 12px;
+    font-style: bold;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    
 }
 
 .navbar_navbar {
@@ -42,11 +58,11 @@ a:visited{
     
 }
 
-.navbar_link {
+.navbar_link1 {
     font-size: 12px;
     font-style: bold;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     
 }
 

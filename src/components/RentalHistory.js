@@ -90,11 +90,11 @@ return (
 
                         if (Date.parse(rentHistObj.startDate) > todaysDate) {
                             return <section key={rentHistObj.id} className="rental">
-                                <p className="titles1">Start Date:</p>{rentHistObj.startDate}
-                                <div className="titles2">End Date:  </div>{rentHistObj.endDate}
-                                <div className="titles3">Instrument:</div>{instObj?.instrumentName}
-                                <div className="titles4">Days Rented:</div>{daysRented()}
-                                <div className="titles5">Total Cost:</div>{rentHistObj.totalCost}
+                                <p className="titles">Start Date:</p>{rentHistObj.startDate}
+                                <div className="titles">End Date:  </div>{rentHistObj.endDate}
+                                <div className="titles">Instrument:</div>{instObj?.instrumentName}
+                                <div className="titles">Days Rented:</div>{daysRented()}
+                                <div className="titles">Total Cost:</div>{rentHistObj.totalCost}
                             </section>
                         }
                     }
