@@ -329,3 +329,41 @@ export const InstrumentFamily = (props) => {
         </>
     )
 })} */}
+
+
+
+
+// const instrumentObj = instruments.map(
+//     (instObj) => {
+//         if (rentHistObj.chosenInstruments?.instrumentId === instObj.id) {
+//             return instObj.instrumentName
+//         }
+//     })
+// const instrumentObj = instruments.filter(
+//     (instObj) => {
+//         if (rentHistObj.chosenInstruments?.instrumentId === instObj.id) {
+//             return rentHistObj.id
+//         }
+//     })
+
+//     instrumentObj.map(
+//         (theInst) => {
+//             if (rentHistObj.chosenInstruments?.instrumentId === theInst.id)
+//             return theInst.instrumentName
+//         })
+
+
+
+// const instrumentObj = instruments.find(
+//     (instObj) => {
+//         if (rentHistObj.chosenInstruments?.instrumentId === instObj.id) {
+//             return instObj.instrumentName
+//         }
+
+// // const instName = instrumentObj.map(
+// //     (rentalInst) => {
+// //         if (rentalInst.id === rentalInst.chosenInsruments.instrumentId)
+// //         return rentalInst.chosenInsruments.instrumentName
+// //     })
+
+//     })
