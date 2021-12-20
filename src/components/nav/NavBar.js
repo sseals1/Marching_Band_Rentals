@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import "./NavBar.css"
+
+
 // import { isAuthenticated } from "../hooks/useSimpleAuth"
 
 export const NavBar = () => {
@@ -9,7 +11,7 @@ export const NavBar = () => {
             <li className="navbar__item">
                 
                 <Link className="navbar__link1" to="/" >
-                    <img src= "Blue Note Music_LOGO.png" width="200" height="200"/>
+                    <img className="logo" src= "Blue Note Music_LOGO.png" width="120" height="120"/>
                 </Link>
 
 
@@ -21,7 +23,12 @@ export const NavBar = () => {
             </li>
 
             <li className="navbar__item1">
-                <Link className="navbar__link" to="/Cart">Cart</Link>
+                <Link 
+                // onClick={
+                //     (event) => {
+                       
+                //     }} 
+                    className="navbar__link" to="/Cart">Cart</Link>
             </li>
 
             

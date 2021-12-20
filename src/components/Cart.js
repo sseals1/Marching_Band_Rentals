@@ -187,9 +187,9 @@ export const Cart = (props) => {
                 (event) => {
                     const copyOfStartDate = { ...chosenDays }
                     const date = new Date(event.target.value)
-                    const correctDate = new Date();
-                    correctDate.setDate(date.getDate() + 1)
-                    copyOfStartDate.startDate = correctDate.toLocaleDateString()
+                    const convertedDate = new Date();
+                    convertedDate.setDate(date.getDate() + 1)
+                    copyOfStartDate.startDate = convertedDate.toLocaleDateString()
                     setDays(copyOfStartDate)
                 }
             } />
@@ -201,9 +201,9 @@ export const Cart = (props) => {
                 (event) => {
                     const copyOfEndDate = { ...chosenDays }
                     const date = new Date(event.target.value)
-                    const correctDate = new Date();
-                    correctDate.setDate(date.getDate() + 1)
-                    copyOfEndDate.endDate = correctDate.toLocaleDateString()
+                    const convertedDate = new Date();
+                    convertedDate.setDate(date.getDate() + 1)
+                    copyOfEndDate.endDate = convertedDate.toLocaleDateString()
                     setDays(copyOfEndDate)
                 }
             } />
@@ -225,7 +225,7 @@ export const Cart = (props) => {
 
                                 return !chosenDays.startDate && !chosenDays.endDate ? ""
                                     : <div key={instObject.id}>
-                                        Order: {instObject.instrument.instrumentName}----- ${instObject.instrument?.costPerDay * totalDays().toFixed(2)}
+                                        Order: {instObject.instrument.instrumentName}----- ${(instObject.instrument?.costPerDay * totalDays()).toFixed(2)}
                                     </div>
                             }
                         }
@@ -241,14 +241,14 @@ export const Cart = (props) => {
 
 
                 <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${totalForDays().toFixed(2) * .095} ` : ""}
+                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${Math.round(totalForDays() * .095).toFixed(2)} ` : ""}
                 </div>
 
 
 
 
                 <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${(parseFloat(totalForDays()).toFixed() * .095) + totalForDays()} ` : ""}
+                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${Math.round(totalForDays() * .095 + totalForDays()).toFixed(2)} ` : ""}
                 </div>
 
 
