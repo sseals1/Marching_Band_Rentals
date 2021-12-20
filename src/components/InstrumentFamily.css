@@ -23,7 +23,7 @@
     /* flex-direction: column; */
     width: 100%; 
     display: block;  
-    /* text-align: center; */
+    text-align: center;
     font-size: 20px;
 }
 

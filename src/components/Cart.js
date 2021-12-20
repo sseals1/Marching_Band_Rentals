@@ -26,18 +26,17 @@ export const Cart = (props) => {
 
     })
 
-    useEffect(
-        () => {
-            fetch("http://localhost:8088/rentals")
-                .then(res => res.json())
-                .then((rentals) => {
-                    setRentalsArray(rentals)
-                })
+    // useEffect(
+    //     () => {
+    //         fetch("http://localhost:8088/rentals")
+    //             .then(res => res.json())
+    //             .then((rentals) => {
+    //                 setRentalsArray(rentals)
+    //             })
 
-        },
-        []
-    )
-
+    //     },
+    //     []
+    // )
 
 
 
@@ -115,7 +114,7 @@ export const Cart = (props) => {
             .then(() => {
                 history.push(`/RentalHistory`)
             })
-
+            .then( () => { fetch (`http://localhost:8088/rentals`)})
     }
 
 
@@ -126,6 +125,7 @@ export const Cart = (props) => {
                 .then(res => res.json())
                 .then((InstrumentRentalObj) => {
                     setChosenInstrumentObject(InstrumentRentalObj)
+                
 
                 })
         },
