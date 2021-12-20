@@ -12,12 +12,6 @@ export const InstrumentFamily = (props) => {
     const [rentalId, setRentalId] = useState(0)
 
 
-    // get the chosenInstruments array to the cart view using PROPS or global variable
-    // look at the chosenInstruments array and capture the intergers inside and cwrite a condtionoal that compares the integer to the value of instrument.id
-    // if insttrument.id == the array interger then return the instrument object .map(int => int == instrument.id)
-
-
-
 
     useEffect(
         () => {
@@ -29,7 +23,6 @@ export const InstrumentFamily = (props) => {
         },
         []
     )
-
 
     useEffect(
         () => {
@@ -43,15 +36,7 @@ export const InstrumentFamily = (props) => {
     )
 
 
-
-
-
-
-
-
     const history = useHistory()
-
-
 
     const saveRentalObj = (event) => {
         event.preventDefault()
@@ -93,22 +78,11 @@ export const InstrumentFamily = (props) => {
 
                 }
             })
-
-        //  rentalObj.id is the primary key that needs to be used when saving instrument choices
-        // itterate the chosenInstruments array and
-        // do a POST operation and send instrumentId and Primary key of the rental
-
-
     }
 
-
-
-
-
-        // explain the rentalObj argument and parameter ?  
-        const saveInstChoice = (rentalObj) => {
+    // explain the rentalObj argument and parameter ?  
+    const saveInstChoice = (rentalObj) => {
         const newchosenInstrument = {
-
         }
 
         const fetchInstChoice = {
@@ -128,39 +102,29 @@ export const InstrumentFamily = (props) => {
 
 
 
-
-
     return (
         <>
 
             <section className="instrument_family">
-
-
                 <h2 className="choose_instrument">Choose an Instrument</h2>
                 {instrumentFamily.map(family => {
+
                     return (
                         <>
                             <h4 className="instrument_family">{family.instrumentType}</h4>
-                            <select onChange={
+                            <select key={family.id} onChange={
                                 (event) => {
-                                    // create array of objects with instrumentId's which are currently captured in state.
-
                                     const copyOfInstChoice = [...chosenInstruments]
                                     copyOfInstChoice.push(parseInt(event.target.value))
                                     setChosenInstruments(copyOfInstChoice)
-
-
                                 }}>
-
-
-
 
                                 <option className="select_instrument" value="0">Select an Instrument</option>
                                 {
                                     instruments.map(
                                         (instObj) => {
                                             if (instObj.instrumentFamilyId === family.id)
-                                                return <option value={instObj.id} id={family.id} key={instObj.id}>
+                                                return <option value={instObj.id} id={instObj.id} key={instObj.id}>
                                                     {instObj.instrumentName}
                                                 </option>
                                         }
@@ -170,7 +134,6 @@ export const InstrumentFamily = (props) => {
                         </>
                     )
                 })}
-
 
                 <section className="day_cost1">
                     {
@@ -192,12 +155,12 @@ export const InstrumentFamily = (props) => {
 
 
             </section>
-            <section className="btn-primary">
-                <button to={``} key="placeholder" onClick={saveRentalObj}>
 
+            <div className="btn-primary">
+                <button key="placeholder" onClick={saveRentalObj}>
                     Add to Cart
                 </button>
-            </section>
+            </div>
 
 
 
