@@ -1,5 +1,18 @@
 
+.rental_history {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
 
+
+.Rentals_view {
+    width: 1174px;
+    overflow: auto;
+    flex-wrap: wrap; 
+    flex-direction: row;
+    align-content: flex-start;   
+}
 
 
 .previous_rental {
@@ -11,7 +24,7 @@
 
 .active_rentals {
     margin-bottom: 10%;
-    width: auto;
+    width: 300px;
     display: flex;
     padding-top: 60px;
     margin-top: 20px;
@@ -95,4 +108,7 @@
     padding: 6px;
     margin-top: 20px;
     border: 1px solid rgb(0, 0, 0);
+}
+.navbar__link1 {
+    text-decoration: none;
 }

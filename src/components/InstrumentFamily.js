@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"
 
 
 export const InstrumentFamily = (props) => {
+
     const [instrumentFamily, setInstrumentFamilyArray] = useState([])
     const [instruments, setInstrumentsArray] = useState([])
     const [chosenInstruments, setChosenInstruments] = useState([])
@@ -80,37 +81,17 @@ export const InstrumentFamily = (props) => {
             })
     }
 
-    // explain the rentalObj argument and parameter ?  
-    const saveInstChoice = (rentalObj) => {
-        const newchosenInstrument = {
-        }
-
-        const fetchInstChoice = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newchosenInstrument)
-        }
-
-        return fetch("http://localhost:8088/chosenInstruments", fetchInstChoice)
-            .then(() => {
-                history.push(`/Cart/${rentalObj.id}`)
-            })
-
-    }
-
 
 
     return (
         <>
+            <div className="main_container1">
+                <section className="instrument_family">
+                    <h2 className="choose_instrument">Choose an Instrument</h2>
+                    {instrumentFamily.map(family => {
 
-            <section className="instrument_family">
-                <h2 className="choose_instrument">Choose an Instrument</h2>
-                {instrumentFamily.map(family => {
 
-                    return (
-                        <>
+                        return <section key={family.id}>
                             <h4 className="instrument_family">{family.instrumentType}</h4>
                             <select key={family.id} onChange={
                                 (event) => {
@@ -131,11 +112,13 @@ export const InstrumentFamily = (props) => {
                                     )
                                 }
                             </select>
-                        </>
-                    )
-                })}
+                        </section>
+                    })}
+                </section>
+            </div>
 
-                <section className="day_cost1">
+            <div className="main_container2">
+                <div className="day_cost1">
                     {
                         instruments.map(
                             (instObjCostName) => {
@@ -150,17 +133,23 @@ export const InstrumentFamily = (props) => {
                         )
 
                     }
-                </section>
 
 
 
-            </section>
+                </div>
 
-            <div className="btn-primary">
-                <button key="placeholder" onClick={saveRentalObj}>
-                    Add to Cart
-                </button>
             </div>
+            <div className="btn_primary2">
+            <section className="btn-primary2">
+                        <button key="button" className="btn-primary1" onClick={saveRentalObj}>
+                            Add to Cart
+                        </button>
+                    </section>
+            </div>
+                    
+
+
+
 
 
 
