@@ -32,7 +32,7 @@ export const MarchingBandRentals = () => {
                     
 
 
-                <NavBar />
+                {/* <NavBar /> */}
                 <ApplicationViews />
 
 

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import "react-datepicker/dist/react-datepicker.css"
 import "./Cart.css"
 import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+
 
 
 
@@ -11,13 +11,10 @@ export const Cart = (props) => {
     const [instruments, setInstrumentsArray] = useState([])
     const [chosenInstruments, setChosenInstrumentsArray] = useState([])
     const history = useHistory()
-    const [rentals, setRentalsArray] = useState([])
     const [chosenInstrumentObject, setChosenInstrumentObject] = useState([])
-    const [totalCost, setTotalCost] = useState(0)
 
 
-
-    const { createdRentalsId } = useParams()
+    let { createdRentalsId } = useParams()
 
 
     const [chosenDays, setDays] = useState({
@@ -25,20 +22,6 @@ export const Cart = (props) => {
         endDate: "",
 
     })
-
-    useEffect(
-        () => {
-            fetch("http://localhost:8088/rentals")
-                .then(res => res.json())
-                .then((rentals) => {
-                    setRentalsArray(rentals)
-                })
-
-        },
-        []
-    )
-
-
 
     useEffect(
         () => {
@@ -51,7 +34,6 @@ export const Cart = (props) => {
         },
         []
     )
-
 
     useEffect(
         () => {
@@ -89,7 +71,7 @@ export const Cart = (props) => {
         for (let i = 0; i < allCostPerDay.length; i++) {
             sum += allCostPerDay[i];
         }
-        
+
         const OrderTotalCost = sum * DateSubtract
         // return OrderTotalCost
 
@@ -108,16 +90,13 @@ export const Cart = (props) => {
             body: JSON.stringify(chosenRentalsObj)
         }
 
-
         return fetch(`http://localhost:8088/rentals/${createdRentalsId}`, fetchInstChoice)
             .then(res => res.json())
             .then(() => {
                 history.push(`/RentalHistory`)
             })
-            
+
     }
-
-
 
     useEffect(
         () => {
@@ -125,7 +104,7 @@ export const Cart = (props) => {
                 .then(res => res.json())
                 .then((InstrumentRentalObj) => {
                     setChosenInstrumentObject(InstrumentRentalObj)
-                
+
 
                 })
         },
@@ -165,106 +144,106 @@ export const Cart = (props) => {
         for (let i = 0; i < allCostPerDay.length; i++) {
             sum += allCostPerDay[i];
         }
-        
+
         const OrderTotalCost = sum * DateSubtract
         return OrderTotalCost
     }
-
-
-    
 
 
 
 
     return (
         <>
-
-            <h2 className="header">Choose Rental Days</h2>
-
-
-            <h6 className="calender">Start Date</h6>
-            <input type="date" onChange={
-                (event) => {
-                    const copyOfStartDate = { ...chosenDays }
-                    const date = new Date(event.target.value)
-                    const convertedDate = new Date();
-                    convertedDate.setDate(date.getDate() + 1)
-                    copyOfStartDate.startDate = convertedDate.toLocaleDateString()
-                    setDays(copyOfStartDate)
-                }
-            } />
+            <div className="calender">
+                <h2 className="header">Choose Rental Days</h2>
 
 
-
-            <h6 className="calender">End Date</h6>
-            <input type="date" onChange={
-                (event) => {
-                    const copyOfEndDate = { ...chosenDays }
-                    const date = new Date(event.target.value)
-                    const convertedDate = new Date();
-                    convertedDate.setDate(date.getDate() + 1)
-                    copyOfEndDate.endDate = convertedDate.toLocaleDateString()
-                    setDays(copyOfEndDate)
-                }
-            } />
+                <h6 className="calender">Start Date</h6>
+                <input type="date" onChange={
+                    (event) => {
+                        const copyOfStartDate = { ...chosenDays }
+                        const date = new Date(event.target.value)
+                        const convertedDate = new Date();
+                        convertedDate.setDate(date.getDate() + 1)
+                        copyOfStartDate.startDate = convertedDate.toLocaleDateString()
+                        setDays(copyOfStartDate)
+                    }
+                } />
 
 
 
+                <h6 className="calender">End Date</h6>
+                <input type="date" onChange={
+                    (event) => {
+                        const copyOfEndDate = { ...chosenDays }
+                        const date = new Date(event.target.value)
+                        const convertedDate = new Date();
+                        convertedDate.setDate(date.getDate() + 1)
+                        copyOfEndDate.endDate = convertedDate.toLocaleDateString()
+                        setDays(copyOfEndDate)
+                    }
+                } />
 
-        <section className="order_box">
-
-            <div className="dayCost_total1">
-                {chosenDays.startDate && chosenDays.endDate ? `Rental Days: ${totalDays()}` : ""}
             </div>
 
-            <section className="dayCost_total2">
-                {
-                    chosenInstruments.map(
-                        (instObject) => {
-                            if (instObject.rentalId === parseInt(createdRentalsId)) {
 
-                                return !chosenDays.startDate && !chosenDays.endDate ? ""
-                                    : <div key={instObject.id}>
-                                        Order: {instObject.instrument.instrumentName}----- ${(instObject.instrument?.costPerDay * totalDays()).toFixed(2)}
-                                    </div>
-                            }
+
+            <div className="days_costs">
+                <section className="order_box">
+
+                    <section className="dayCost_total1">
+                        {chosenDays.startDate && chosenDays.endDate ? `Rental Days: ${totalDays()}` : ""}
+                    </section>
+
+                    <section className="dayCost_total2">
+                        {
+                            chosenInstruments.map(
+                                (instObject) => {
+                                    if (instObject.rentalId === parseInt(createdRentalsId)) {
+
+                                        return !chosenDays.startDate && !chosenDays.endDate ? ""
+                                            : <section key={instObject.id}>
+                                                Order: {instObject.instrument.instrumentName}----- ${(instObject.instrument?.costPerDay * totalDays()).toFixed(2)}
+                                            </section>
+                                    }
+                                }
+
+                            )
+
                         }
-
-                    )
-
-                }
-            </section>
+                    </section>
 
 
-            <section className="">
+                    <section className="">
 
 
 
-                <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${Math.round(totalForDays() * .095).toFixed(2)} ` : ""}
-                </div>
+                        <section className="cost_total">
+                            {chosenDays.startDate && chosenDays.endDate ? ` Tax: $ ${(totalForDays() * .095).toFixed(2)} ` : ""}
+                        </section>
 
 
 
-
-                <div className="cost_total">
-                    {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${Math.round(totalForDays() * .095 + totalForDays()).toFixed(2)} ` : ""}
-                </div>
-
+                        <section className="cost_total">
+                            {chosenDays.startDate && chosenDays.endDate ? ` Your order total is: $${(totalForDays() * .095 + totalForDays()).toFixed(2)} ` : ""}
+                        </section>
 
 
 
+                    </section>
 
-            </section>
-
-            <button onClick={editRentalObject} className="btn-primary" key={createdRentalsId}>
-                Submit Order
-            </button>
+                    <section className="calender">
+                        <button onClick={editRentalObject} className="btn-primary" key={createdRentalsId}>
+                            Submit Order
+                        </button>
+                    </section>
 
 
 
 
-            </section>
+                </section>
+            </div>
+
 
 
 
